@@ -9,3 +9,15 @@ class Solution {
         return n == 1;
     }
 }
+
+class Solution {
+    public int numberOfMatches(int n) {
+        int count = 0;
+        while (n > 1) {
+            int matches = n / 2;
+            count += matches;
+            n = matches + (n % 2);  
+        }
+        return count;
+    }
+}
