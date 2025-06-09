@@ -1,0 +1,27 @@
+class Solution {
+    public int subtractProductAndSum(int n) {
+        int sum=0,product=1;
+       while(n>0){
+       int last=n%10;
+       product=product*last;
+       sum=sum+last;
+       n=n/10;
+       } 
+       return product-sum;
+    }
+}
+
+class Solution {
+    public boolean canWinNim(int n) {
+      return n%4!=0;  
+    }
+}
+
+class Solution {
+    public int divide(int dividend, int divisor) {
+        long result = (long) dividend / (long) divisor;
+        return result > Integer.MAX_VALUE ? Integer.MAX_VALUE :
+               result < Integer.MIN_VALUE ? Integer.MIN_VALUE :
+               (int) result;
+    }
+}
