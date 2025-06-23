@@ -47,8 +47,8 @@ I believe that consistency is the key to mastery. This repository is a testament
 
 ## 📬 Connect
 
-- [My LeetCode Profile](https://leetcode.com/)
-- [LinkedIn](https://www.linkedin.com/)
+- [LinkedIn](https://www.linkedin.com/in/dinesh-r12/)
+- [LeetCode](https://leetcode.com/u/DINESH_R12/)
 
 ---
 
