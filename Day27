@@ -1,0 +1,88 @@
+class MyHashMap {
+    private Map<Integer,Integer> map;
+    public MyHashMap() {
+       map = new HashMap<>();}
+    
+    
+    public void put(int key, int value) { 
+        map.put(key,value);
+    }
+    
+    public int get(int key) {
+        return map.getOrDefault(key,-1);
+    }
+    
+    public void remove(int key) {
+        map.remove(key);
+    }
+}
+
+class Solution {
+    public void merge(int[] nums1, int m, int[] nums2, int n) {
+        int p1 = m - 1;
+        int p2 = n - 1;
+        int p = m + n - 1;
+
+        while (p1 >= 0 && p2 >= 0) {
+            if (nums1[p1] > nums2[p2]) {
+                nums1[p] = nums1[p1];
+                p1--;
+            } else {
+                nums1[p] = nums2[p2];
+                p2--;
+            }
+            p--;
+        }
+
+        while (p2 >= 0) {
+            nums1[p] = nums2[p2];
+            p--;
+            p2--;
+        }
+    }
+}
+
+
+import java.util.*;
+
+class Solution {
+    public int[] frequencySort(int[] nums) {
+        Map<Integer, Integer> freqMap = new HashMap<>();
+        for (int num : nums) {
+            freqMap.put(num, freqMap.getOrDefault(num, 0) + 1);
+        }
+
+        Integer[] boxed = Arrays.stream(nums).boxed().toArray(Integer[]::new);
+
+        Arrays.sort(boxed, (a, b) -> {
+            int freqA = freqMap.get(a);
+            int freqB = freqMap.get(b);
+            if (freqA != freqB) return freqA - freqB;
+            return b - a;
+        });
+
+        for (int i = 0; i < nums.length; i++) {
+            nums[i] = boxed[i];
+        }
+
+        return nums;
+    }
+}
+
+
+class Solution {
+    public int firstUniqChar(String s) {
+        Map<Character, Integer> freqMap = new HashMap<>();
+        for (char ch : s.toCharArray()) {
+            freqMap.put(ch, freqMap.getOrDefault(ch, 0) + 1);
+        }
+        for (int i = 0; i < s.length(); i++) {
+            if (freqMap.get(s.charAt(i)) == 1) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+}
+
