@@ -1,0 +1,89 @@
+class Solution {
+    public int gcd(int a,int b){
+       while (b != 0) {
+        int temp = b;
+        b = a % b;
+        a = temp;
+    }
+       return a;
+    }
+
+    public ListNode insertGreatestCommonDivisors(ListNode head) {
+        ListNode ptr=head;
+
+        while(ptr!=null && ptr.next!=null){
+          int v=gcd(ptr.val,ptr.next.val);
+          ListNode newNode=new ListNode(v);
+          newNode.next=ptr.next;
+          ptr.next=newNode;
+          ptr=newNode.next; 
+        }
+        return head;
+    }
+}
+
+class Solution {
+    public ListNode mergeNodes(ListNode head) {
+        ListNode ptr1 = head.next;
+        ListNode res = new ListNode(0);
+        ListNode ptr2 = res;
+        int sum = 0;
+
+        while (ptr1 != null) {
+            if (ptr1.val == 0) {
+                ptr2.next = new ListNode(sum);
+                ptr2 = ptr2.next;
+                sum = 0;
+            } else {
+                sum += ptr1.val;
+            }
+            ptr1 = ptr1.next;
+        }
+
+        return res.next;
+    }
+}
+
+
+public class Solution {
+    public boolean hasCycle(ListNode head) {
+        ListNode slow=head,fast=head;
+        while(fast!=null&&fast.next!=null){
+            slow=slow.next;
+            fast=fast.next.next;
+
+            if(slow==fast) return true;
+        }
+        return false;
+    }
+}
+
+public class Solution {
+    public ListNode detectCycle(ListNode head) {
+        ListNode slow=head,fast=head;
+        while(fast!=null&&fast.next!=null){
+            slow=slow.next;
+            fast=fast.next.next;
+
+            if(slow==fast){
+            ListNode entry = head;
+                while (entry != slow) {
+                    entry = entry.next;
+                    slow = slow.next;  
+                }   return entry; 
+                }}
+                return null;
+               }}
+
+class Solution {
+    public ListNode middleNode(ListNode head) {
+        ListNode fast=head,slow=head;
+        while(fast!=null&&fast.next!=null){
+            slow=slow.next;
+            fast=fast.next.next;
+        }
+        return slow;
+    }
+}
+
+
