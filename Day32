@@ -1,0 +1,161 @@
+class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+        ListNode ptr=head;
+        if(head==null || head.next==null) return head;
+        while(ptr!=null && ptr.next!=null){
+            if(ptr.val==ptr.next.val){
+                ptr.next=ptr.next.next;
+            }else{
+            ptr=ptr.next;}
+        }
+        return head;
+    }
+}
+
+class Solution {
+    public ListNode deleteDuplicates(ListNode head) {
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode ptr1 = dummy;
+        ListNode ptr = head;
+
+        while (ptr != null) {
+            boolean isDuplicate = false;
+
+            while (ptr.next != null && ptr.val == ptr.next.val) {
+                ptr = ptr.next;
+                isDuplicate = true;
+            }
+
+            if (isDuplicate) {
+                ptr1.next = ptr.next; 
+            } else {
+                ptr1 = ptr1.next; 
+            }
+
+            ptr = ptr.next;
+        }
+
+        return dummy.next;
+    }
+}
+
+class Solution {
+    public ListNode deleteMiddle(ListNode head) {
+        ListNode slow=head;
+        ListNode fast=head;
+        ListNode prev=null;
+        if(head==null || head.next==null) return null;
+        while(fast!=null&& fast.next!=null){
+            prev=slow;
+            slow=slow.next;
+            fast=fast.next.next;
+         }
+
+       prev.next=slow.next;
+       return head;
+    }
+}
+
+class Solution {
+    public int size(ListNode list1){
+        int count=0;
+        while(list1!=null){
+          count++;
+          list1=list1.next;
+          
+        }return count;
+    }
+
+    public ListNode mergeInBetween(ListNode list1, int a, int b, ListNode list2) {
+        int i=0;
+        ListNode ptr=list1;
+        ListNode ptr1=null;
+        while(i<a-1){
+        ptr=ptr.next;
+        i++;
+        }
+        ptr1=ptr;
+        
+        while(i<=b){
+         ptr=ptr.next;
+         i++;
+        }
+
+        ptr1.next=list2;
+        while(list2.next!=null){
+            list2=list2.next;
+        }
+        list2.next=ptr;
+
+        return list1;
+    }
+}
+
+class Solution {
+    public ListNode removeElements(ListNode head, int val) {
+        while (head != null && head.val == val) {
+            head = head.next;
+        }
+        ListNode ptr=head;
+        while(ptr!=null){
+            if(ptr.next!=null && ptr.next.val==val ){
+              ptr.next=ptr.next.next;
+            }else{
+                ptr=ptr.next;
+            }
+        }
+        return head;
+    }
+}
+
+import java.util.HashSet;
+
+class Solution {
+    public ListNode modifiedList(int[] nums, ListNode head) {
+        HashSet<Integer> targets = new HashSet<>();
+        for (int num : nums) {
+            targets.add(num);
+        }
+
+        while (head != null && targets.contains(head.val)) {
+            head = head.next;
+        }
+
+        ListNode ptr = head;
+
+        while (ptr != null && ptr.next != null) {
+            if (targets.contains(ptr.next.val)) {
+                ptr.next = ptr.next.next;
+            } else {
+                ptr = ptr.next;
+            }
+        }
+
+        return head;
+    }
+}
+
+
+class Solution {
+    public ListNode mergeTwoLists(ListNode list1, ListNode list2) {
+        ListNode start=new ListNode();
+        ListNode tptr=start;
+        while(list1!=null && list2!=null){
+            if(list1.val<list2.val){
+                tptr.next=list1;
+                list1=list1.next;
+            }else{
+                tptr.next=list2;
+                list2=list2.next;
+            }  tptr=tptr.next;
+        }
+         if (list1 != null) {
+            tptr.next = list1;
+        } else {
+            tptr.next = list2;
+        }
+
+     return start.next;
+    }
+}
