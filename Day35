@@ -1,0 +1,149 @@
+class Solution {
+    public int[][] spiralMatrix(int m, int n, ListNode head) {
+        int[][] matrix = new int[m][n];
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                matrix[i][j] = -1;
+            }
+        }
+
+        int top = 0, bottom = m - 1;
+        int left = 0, right = n - 1;
+        ListNode current = head;
+
+        while (current != null && top <= bottom && left <= right) {
+            for (int j = left; j <= right && current != null; j++) {
+                matrix[top][j] = current.val;
+                current = current.next;
+            }
+            top++;
+
+            for (int i = top; i <= bottom && current != null; i++) {
+                matrix[i][right] = current.val;
+                current = current.next;
+            }
+            right--;
+
+            for (int j = right; j >= left && current != null; j--) {
+                matrix[bottom][j] = current.val;
+                current = current.next;
+            }
+            bottom--;
+
+            for (int i = bottom; i >= top && current != null; i--) {
+                matrix[i][left] = current.val;
+                current = current.next;
+            }
+            left++;
+        }
+
+        return matrix;
+    }
+}
+
+
+class Solution {
+    public ListNode removeNodes(ListNode head) {
+        head = reverseList(head);
+
+        ListNode dummy = new ListNode(0);
+        ListNode curr = head;
+        ListNode prev = dummy;
+        int max = Integer.MIN_VALUE;
+
+        while (curr != null) {
+            if (curr.val >= max) {
+                max = curr.val;
+                prev.next = curr;
+                prev = curr;
+            }
+            curr = curr.next;
+        }
+        prev.next = null;
+
+        return reverseList(dummy.next);
+    }
+
+    private ListNode reverseList(ListNode head) {
+        ListNode prev = null;
+        while (head != null) {
+            ListNode next = head.next;
+            head.next = prev;
+            prev = head;
+            head = next;
+        }
+        return prev;
+    }
+}
+
+
+class Solution {
+    public int pairSum(ListNode head) {
+        List<Integer> list = new ArrayList<>();
+        while (head != null) {
+            list.add(head.val);
+            head = head.next;
+        }
+
+        int maxSum = Integer.MIN_VALUE;
+        int n = list.size();
+
+        for (int i = 0; i < n / 2; i++) {
+            int sum = list.get(i) + list.get(n - 1 - i);
+            maxSum = Math.max(maxSum, sum);
+        }
+
+        return maxSum;
+    }
+}
+
+
+class BrowserHistory {
+    List<String> track;
+    int curr=0;
+    public BrowserHistory(String homepage) {
+        track=new ArrayList<>();
+        track.add(homepage);
+        curr=0;
+    }
+    
+    public void visit(String url) {
+        while(track.size()>curr+1){
+            track.remove(track.size()-1);
+        }
+        track.add(url);
+        curr++;
+    }
+    
+    public String back(int steps) {
+        curr=Math.max(0,curr-steps);
+        return track.get(curr);
+    }
+    
+    public String forward(int steps) {
+        curr=Math.min(track.size()-1,curr+steps);
+        return track.get(curr);
+        }
+    }
+
+
+class MyHashSet {
+    private boolean[] buckets;
+
+    public MyHashSet() {
+        buckets = new boolean[1_000_001];
+    }
+
+    public void add(int key) {
+        buckets[key] = true;
+    }
+
+    public void remove(int key) {
+        buckets[key] = false;
+    }
+
+    public boolean contains(int key) {
+        return buckets[key];
+    }
+}
