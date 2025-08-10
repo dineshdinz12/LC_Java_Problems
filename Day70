@@ -1,0 +1,23 @@
+class Solution {
+    public boolean reorderedPowerOf2(int n) {
+        String nCount = countDigits(n);
+        
+        for (int i = 1; i <= 1_000_000_000; i <<= 1) {
+            if (nCount.equals(countDigits(i))) {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    private String countDigits(int num) {
+        int[] count = new int[10];
+        while (num > 0) {
+            count[num % 10]++;
+            num /= 10;
+        }
+        StringBuilder sb = new StringBuilder();
+        for (int c : count) sb.append(c);
+        return sb.toString();
+    }
+}
