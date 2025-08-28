@@ -1,0 +1,44 @@
+import java.util.*;
+
+class Solution {
+    public int[][] sortMatrix(int[][] grid) {
+        int n = grid.length;
+        for (int i = 0; i < n; i++) {
+            List<Integer> diag = new ArrayList<>();
+            int r = i, c = 0;
+            while (r < n && c < n) {
+                diag.add(grid[r][c]);
+                r++;
+                c++;
+            }
+            if (i <= n - 1) {
+                Collections.sort(diag, Collections.reverseOrder());
+            }
+            r = i;
+            c = 0;
+            for (int v : diag) {
+                grid[r][c] = v;
+                r++;
+                c++;
+            }
+        }
+        for (int j = 1; j < n; j++) {
+            List<Integer> diag = new ArrayList<>();
+            int r = 0, c = j;
+            while (r < n && c < n) {
+                diag.add(grid[r][c]);
+                r++;
+                c++;
+            }
+            Collections.sort(diag);
+            r = 0;
+            c = j;
+            for (int v : diag) {
+                grid[r][c] = v;
+                r++;
+                c++;
+            }
+        }
+        return grid;
+    }
+}
