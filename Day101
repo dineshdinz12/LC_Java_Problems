@@ -1,0 +1,30 @@
+class Solution {
+    public int minimumTeachings(int n, int[][] languages, int[][] friendships) {
+        int m = languages.length;
+        Set<Integer>[] knows = new HashSet[m + 1];
+        for (int i = 0; i < m; i++) {
+            knows[i + 1] = new HashSet<>();
+            for (int lang : languages[i]) knows[i + 1].add(lang);
+        }
+        Set<Integer> needTeach = new HashSet<>();
+        for (int[] f : friendships) {
+            int a = f[0], b = f[1];
+            if (!canCommunicate(knows[a], knows[b])) {
+                needTeach.add(a);
+                needTeach.add(b);
+            }
+        }
+        if (needTeach.isEmpty()) return 0;
+        int[] count = new int[n + 1];
+        for (int person : needTeach)
+            for (int lang : knows[person]) count[lang]++;
+        int maxCount = 0;
+        for (int i = 1; i <= n; i++) maxCount = Math.max(maxCount, count[i]);
+        return needTeach.size() - maxCount;
+    }
+
+    private boolean canCommunicate(Set<Integer> a, Set<Integer> b) {
+        for (int lang : a) if (b.contains(lang)) return true;
+        return false;
+    }
+}
