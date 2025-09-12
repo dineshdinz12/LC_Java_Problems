@@ -1,0 +1,13 @@
+class Solution {
+    public boolean doesAliceWin(String s) {
+        int a = 0, b = 0;
+        for (int i = 1; i + 1 < s.length(); i++) {
+            char c = s.charAt(i);
+            if (c == s.charAt(i - 1) && c == s.charAt(i + 1)) {
+                if (c == 'A') a++;
+                else if (c == 'B') b++;
+            }
+        }
+        return a > b;
+    }
+}
