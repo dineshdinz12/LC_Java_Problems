@@ -1,0 +1,41 @@
+class Solution {
+    public String[] spellchecker(String[] wordlist, String[] queries) {
+        java.util.Set<String> exact = new java.util.HashSet<>();
+        java.util.Map<String, String> lowerMap = new java.util.HashMap<>();
+        java.util.Map<String, String> devowelMap = new java.util.HashMap<>();
+        for (String w : wordlist) {
+            exact.add(w);
+            String lw = w.toLowerCase();
+            lowerMap.putIfAbsent(lw, w);
+            devowelMap.putIfAbsent(devowel(lw), w);
+        }
+        String[] ans = new String[queries.length];
+        for (int i = 0; i < queries.length; ++i) {
+            String q = queries[i];
+            if (exact.contains(q)) {
+                ans[i] = q;
+                continue;
+            }
+            String lq = q.toLowerCase();
+            if (lowerMap.containsKey(lq)) {
+                ans[i] = lowerMap.get(lq);
+                continue;
+            }
+            String dv = devowel(lq);
+            if (devowelMap.containsKey(dv)) {
+                ans[i] = devowelMap.get(dv);
+            } else {
+                ans[i] = "";
+            }
+        }
+        return ans;
+    }
+    private String devowel(String s) {
+        char[] cs = s.toCharArray();
+        for (int i = 0; i < cs.length; ++i) {
+            char c = cs[i];
+            if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u') cs[i] = '*';
+        }
+        return new String(cs);
+    }
+}
