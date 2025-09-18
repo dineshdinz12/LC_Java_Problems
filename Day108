@@ -1,0 +1,70 @@
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.PriorityQueue;
+
+class TaskManager {
+
+    private PriorityQueue<int[]> pq;
+    private Map<Integer, int[]> taskDetails;
+
+    public TaskManager(List<List<Integer>> tasks) {
+        pq = new PriorityQueue<>((a, b) -> {
+            if (a[0] != b[0]) {
+                return Integer.compare(b[0], a[0]);
+            }
+            return Integer.compare(b[1], a[1]);
+        });
+
+        taskDetails = new HashMap<>();
+
+        for (List<Integer> task : tasks) {
+            int userId = task.get(0);
+            int taskId = task.get(1);
+            int priority = task.get(2);
+            this.add(userId, taskId, priority);
+        }
+    }
+    
+    public void add(int userId, int taskId, int priority) {
+        taskDetails.put(taskId, new int[]{userId, priority});
+        pq.offer(new int[]{priority, taskId});
+    }
+    
+    public void edit(int taskId, int newPriority) {
+        int userId = taskDetails.get(taskId)[0];
+        taskDetails.put(taskId, new int[]{userId, newPriority});
+        pq.offer(new int[]{newPriority, taskId});
+    }
+    
+    public void rmv(int taskId) {
+        taskDetails.remove(taskId);
+    }
+    
+    public int execTop() {
+        while (!pq.isEmpty()) {
+            int[] top = pq.peek();
+            int priority = top[0];
+            int taskId = top[1];
+
+            if (!taskDetails.containsKey(taskId) || taskDetails.get(taskId)[1] != priority) {
+                pq.poll();
+            } else {
+                break;
+            }
+        }
+
+        if (pq.isEmpty()) {
+            return -1;
+        }
+
+        int[] topTask = pq.poll();
+        int taskId = topTask[1];
+        
+        int userId = taskDetails.get(taskId)[0];
+        
+        taskDetails.remove(taskId);
+        
+        return userId;
+    }
+}
