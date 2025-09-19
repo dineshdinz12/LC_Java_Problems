@@ -1,0 +1,43 @@
+import java.util.HashMap;
+import java.util.Map;
+
+class Spreadsheet {
+    private int rows;
+    private int[][] grid;
+    
+    public Spreadsheet(int rows) {
+        this.rows = rows;
+        this.grid = new int[rows][26];
+    }
+    
+    public void setCell(String cell, int value) {
+        int[] coords = parseCell(cell);
+        grid[coords[0]][coords[1]] = value;
+    }
+    
+    public void resetCell(String cell) {
+        setCell(cell, 0);
+    }
+    
+    public int getValue(String formula) {
+        String[] parts = formula.substring(1).split("\\+");
+        int operand1 = parseOperand(parts[0]);
+        int operand2 = parseOperand(parts[1]);
+        return operand1 + operand2;
+    }
+    
+    private int[] parseCell(String cell) {
+        int col = cell.charAt(0) - 'A';
+        int row = Integer.parseInt(cell.substring(1)) - 1;
+        return new int[]{row, col};
+    }
+    
+    private int parseOperand(String operand) {
+        if (Character.isLetter(operand.charAt(0))) {
+            int[] coords = parseCell(operand);
+            return grid[coords[0]][coords[1]];
+        } else {
+            return Integer.parseInt(operand);
+        }
+    }
+}
