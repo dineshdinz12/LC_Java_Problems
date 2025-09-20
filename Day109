@@ -9,7 +9,6 @@ class Spreadsheet {
         this.rows = rows;
         this.grid = new int[rows][26];
     }
-    
     public void setCell(String cell, int value) {
         int[] coords = parseCell(cell);
         grid[coords[0]][coords[1]] = value;
